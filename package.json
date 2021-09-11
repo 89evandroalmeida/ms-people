@@ -1,0 +1,22 @@
+{
+  "name": "ms-people",
+  "version": "0.1.0",
+  "description": "Microservice for people management",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "microservice",
+    "people",
+    "management"
+  ],
+  "author": "Evandro Almeida <89evandroalmeida@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.5"
+  }
+}
