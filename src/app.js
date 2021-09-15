@@ -8,4 +8,8 @@ app.use(
   })
 );
 
+const peopleRouter = require("./routers/people");
+
+app.use("/people", peopleRouter);
+
 module.exports = app;
