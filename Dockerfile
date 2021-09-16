@@ -8,6 +8,7 @@ RUN npm install
 
 COPY src/* ./
 COPY src/controllers ./controllers
+COPY src/middleware ./middleware
 COPY src/models ./models
 COPY src/routers ./routers
 COPY src/services ./services
