@@ -1,12 +1,19 @@
 const Person = require("../models/Person");
 
 module.exports = class PersonService {
-  static async createPerson(data) {
+  static async createPerson(data, userScope) {
     try {
       const newPerson = {
-        name: data.name,
-        email: data.email
-      };
+        code: data.code,
+        email: data.email,
+        name: data.name
+      }
+      if (userScope.canEditPersonalData) {
+        newPerson.personalData = data.personalData;
+      }
+      if (userScope.canEditSensitiveData) {
+        newPerson.sensitiveData = data.sensitiveData;
+      }
       const response = await new Person(newPerson).save();
       return response;
     } catch (error) {
@@ -14,9 +21,17 @@ module.exports = class PersonService {
     }
   }
 
-  static async readAllPeople() {
+  static async readAllPeople(userScope) {
     try {
-      const allPeople = await Person.find();
+      let fields = "code email name";
+      if (userScope.canViewPersonalData) {
+        fields += " personalData";
+      }
+      if (userScope.canViewSensitiveData) {
+        fields += " sensitiveData";
+      }
+
+      const allPeople = await Person.find({}).select(fields);
       return allPeople;
     } catch (error) {
       console.log(`Could not fetch people ${error}`);

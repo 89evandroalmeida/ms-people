@@ -18,7 +18,16 @@ module.exports = class UserService {
       if (user && (await bcrypt.compare(password, user.password))) {
         // Create token
         const token = jwt.sign(
-          { user_id: user._id, email },
+          {
+            user_id: user._id,
+            email: email,
+            scope: {
+              canViewPersonalData: true,
+              canEditPersonalData: false,
+              canViewSensitiveData: true,
+              canEditSensitiveData: true
+            }
+          },
           process.env.TOKEN_KEY,
           {
             expiresIn: "2h",

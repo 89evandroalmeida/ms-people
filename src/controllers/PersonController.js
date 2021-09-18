@@ -2,7 +2,7 @@ const PersonService = require("../services/PersonService");
 
 exports.create = async (req, res) => {
   try {
-    const createdPerson = await PersonService.createPerson(req.body);
+    const createdPerson = await PersonService.createPerson(req.body, req.user.scope);
     res.status(201).json(createdPerson);
   } catch (error) {
     res.status(500).json({ error: error });
@@ -22,7 +22,7 @@ exports.read = async (req, res) => {
 
 exports.readAll = async (req, res) => {
   try {
-    const people = await PersonService.readAllPeople();
+    const people = await PersonService.readAllPeople(req.user.scope);
 
     /*if (!people) {
       return res.status(404).json("There are no people published yet!");
